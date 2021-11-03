@@ -1,1 +1,128 @@
-Hello world
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Page title shown in window title</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<header>
+    <h1>Välkommen till Addes Burgare</h1>
+</header>
+<nav>Menyn:</nav>
+<main>
+    <section>
+        <h2>Välj Burgare</h2>
+        <p>This is where you select burger</p>
+
+        <div style="float:left">
+            <br>
+            <figure>
+                <h3>Addes special</h3>
+                <img src="addesburgare.jpg" alt="span" title="Adde" style="width: 200px;">
+                <ul>
+                    <li>Svenskt Kött</li>
+                    <li>Lökig Lök</li>
+                    <li> hjärtproblem</li>
+                </ul>
+            </figure>
+
+
+        </div>
+        <br>
+        <div id="Robbans" style="float:left">
+
+            <figure>
+                <h3>Robbans Burgare</h3>
+                <img src="addesburgare.jpg" alt="span" title="Adde" style="width: 200px;">
+                <ul>
+                    <li>Svenskt Kött</li>
+                    <li>Lökig Lök</li>
+                    <li>hjärtproblem</li>
+                </ul>
+            </figure>
+        </div>
+
+        <div id="Elibonks" style="clear:right">
+            <figure>
+                <h3>Elibonks Burgare</h3>
+                <img src="addesburgare.jpg" alt="span" title="Adde" style="width: 200px;">
+                <ul>
+                    <li>Svenskt Kött</li>
+                    <li>Lökig Lök</li>
+                    <li>hjärtproblem</li>
+                </ul>
+            </figure>
+        </div>
+        <br>
+    </section>
+
+    <section>
+        <h3>Customer Information</h3>
+        <form>
+            <p>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+            </p>
+
+            <p>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+            </p>
+
+            <p>
+                <input type="radio" id="Other" name="gender" value="Other" checked>
+                <label for="Other">Other</label>
+            </p>
+
+
+            <h4>Delivery Information</h4>
+
+
+            <p>
+                <label for="Fullname">Full Name</label><br>
+                <input type="text" id="fullname" name="fn" required="required" placeholder="Full Name">
+            </p>
+
+            <p>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+            </p>
+
+            <p>
+                <label for="Street">Street</label><br>
+                <input type="text" id="street" name="st" placeholder="Street">
+            </p>
+
+            <p>
+                <label for="HouseNumber">House Number</label><br>
+                <input type="number" id="housenumber" name="Num" placeholder="House Number">
+            </p>
+
+            <p>
+                <label for="recipient">Recipient</label><br>
+                <select id="recipient" name="rcp">
+                    <option selected="selected">Credit Card</option>
+                    <option>Delivery Payment</option>
+                    <option>Bitcoin</option>
+                    <option>Invoice</option>
+                    <option>Sing a song</option>
+                </select>
+            </p>
+            <label for="other">Other Information</label><br>
+            <p><textarea id="other"></textarea>
+            </p>
+
+            <button type="submit">
+                <img src="./static/1md034/img/html/image_button.png">
+                Make Order!
+            </button>
+        </form>
+
+    </section>
+</main>
+<footer>
+    <hr>
+    End Notes
+</footer>
+</body>
+</html>
