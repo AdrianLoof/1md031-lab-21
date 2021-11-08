@@ -1,26 +1,28 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns:margin-top="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Page title shown in window title</title>
     <meta charset="utf-8"/>
 </head>
 <body>
 <header>
-    <h1>Välkommen till Addes Burgare</h1>
+    <div class="container">
+    <h1 id="headertext">Välkommen till Addes Burgare</h1>
+    <img id="background" src="paddys.jpg">
 </header>
-<nav>Menyn:</nav>
+
 <main>
-    <section>
+    <section id="testid">
         <h2>Välj Burgare</h2>
         <p>This is where you select burger</p>
-
-        <div style="float:left">
-<br>
+       <div class="wrapper">
+        <div class="a">
             <figure>
                 <h3>Addes special</h3>
                 <img src="addesburgare.jpg" alt="span" title="Adde" style="width: 200px;">
                 <ul>
-                    <li>Svenskt Kött</li>
+                    <li class="ingrediens">Svenskt Kött</li>
                     <li>Lökig Lök</li>
                     <li> hjärtproblem</li>
                 </ul>
@@ -28,21 +30,21 @@
 
 
         </div>
-        <br>
-        <div id="Robbans" style="float:left">
+
+        <div id="Robbans" class="b">
 
             <figure>
                 <h3>Robbans Burgare</h3>
                 <img src="kyckling.jpg" alt="span" title="Robbans" style="width: 200px;">
                 <ul>
-                    <li>Svensk Kyckling</li>
+                    <li class="ingrediens">Svensk Kyckling</li>
                     <li>Glutenfri</li>
-                    <li>Guacamole</li>
+                    <li class="ingrediens">Guacamole</li>
                 </ul>
             </figure>
         </div>
 
-        <div id="Elibonks" style="clear:right">
+        <div id="Elibonks" class="c">
             <figure>
                 <h3>Elibonks Burgare</h3>
                 <img src="veggie.jpg" alt="span" title="veggie" style="width: 200px;">
@@ -53,11 +55,11 @@
                 </ul>
             </figure>
         </div>
-        <br>
+       </div>
     </section>
 
-    <section>
-        <h3>Customer Information</h3>
+    <section id="testid2">
+        <h3 class="movetitles">Customer Information</h3>
         <form>
             <p>
                 <input type="radio" id="male" name="gender" value="male">
@@ -75,7 +77,7 @@
             </p>
 
 
-            <h4>Delivery Information</h4>
+            <h4 class="movetitles">Delivery Information</h4>
 
 
             <p>
@@ -108,17 +110,18 @@
                     <option>Sing a song</option>
                 </select>
             </p>
+            <p>
             <label for="other">Other Information</label><br>
-            <p><textarea id="other"></textarea>
+            <textarea id="other"></textarea>
             </p>
-
-            <button type="submit">
-                <img src="./static/1md034/img/html/image_button.png">
-                Make Order!
-            </button>
         </form>
 
     </section>
+    <button class="button" style="margin-left: 20px  " type="submit">
+        <img src="./static/1md034/img/html/image_button.png">
+        Make Order!
+    </button>
+
 </main>
 <footer>
     <hr>
