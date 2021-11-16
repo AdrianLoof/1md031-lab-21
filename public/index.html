@@ -1,131 +1,17 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:margin-top="http://www.w3.org/1999/xhtml">
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Page title shown in window title</title>
-    <meta charset="utf-8"/>
-</head>
-<body>
-<header>
-    <div class="container">
-    <h1 id="headertext">Välkommen till Addes Burgare</h1>
-    <img id="background" src="paddys.jpg">
-</header>
-
-<main>
-    <section id="testid">
-        <h2>Välj Burgare</h2>
-        <p>This is where you select burger</p>
-       <div class="wrapper">
-        <div class="a">
-            <figure>
-                <h3>Addes special</h3>
-                <img src="addesburgare.jpg" alt="span" title="Adde" style="width: 200px;">
-                <ul>
-                    <li class="ingrediens">Svenskt Kött</li>
-                    <li>Lökig Lök</li>
-                    <li> hjärtproblem</li>
-                </ul>
-            </figure>
-
-
-        </div>
-
-        <div id="Robbans" class="b">
-
-            <figure>
-                <h3>Robbans Burgare</h3>
-                <img src="kyckling.jpg" alt="span" title="Robbans" style="width: 200px;">
-                <ul>
-                    <li class="ingrediens">Svensk Kyckling</li>
-                    <li>Glutenfri</li>
-                    <li class="ingrediens">Guacamole</li>
-                </ul>
-            </figure>
-        </div>
-
-        <div id="Elibonks" class="c">
-            <figure>
-                <h3>Elibonks Burgare</h3>
-                <img src="veggie.jpg" alt="span" title="veggie" style="width: 200px;">
-                <ul>
-                    <li>Ekologisk</li>
-                    <li>Vegansk ost</li>
-                    <li>Typ Hälsosam</li>
-                </ul>
-            </figure>
-        </div>
-       </div>
-    </section>
-
-    <section id="testid2">
-        <h3 class="movetitles">Customer Information</h3>
-        <form>
-            <p>
-                <input type="radio" id="male" name="gender" value="male">
-                <label for="male">Male</label>
-            </p>
-
-            <p>
-                <input type="radio" id="female" name="gender" value="female">
-                <label for="female">Female</label>
-            </p>
-
-            <p>
-                <input type="radio" id="Other" name="gender" value="Other" checked>
-                <label for="Other">Other</label>
-            </p>
-
-
-            <h4 class="movetitles">Delivery Information</h4>
-
-
-            <p>
-                <label for="Fullname">Full Name</label><br>
-                <input type="text" id="fullname" name="fn" required="required" placeholder="Full Name">
-            </p>
-
-            <p>
-                <label for="email">Email</label><br>
-                <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
-            </p>
-
-            <p>
-                <label for="Street">Street</label><br>
-                <input type="text" id="street" name="st" placeholder="Street">
-            </p>
-
-            <p>
-                <label for="HouseNumber">House Number</label><br>
-                <input type="number" id="housenumber" name="Num" placeholder="House Number">
-            </p>
-
-            <p>
-                <label for="recipient">Recipient</label><br>
-                <select id="recipient" name="rcp">
-                    <option selected="selected">Credit Card</option>
-                    <option>Delivery Payment</option>
-                    <option>Bitcoin</option>
-                    <option>Invoice</option>
-                    <option>Sing a song</option>
-                </select>
-            </p>
-            <p>
-            <label for="other">Other Information</label><br>
-            <textarea id="other"></textarea>
-            </p>
-        </form>
-
-    </section>
-    <button class="button" style="margin-left: 20px  " type="submit">
-        <img src="./static/1md034/img/html/image_button.png">
-        Make Order!
-    </button>
-
-</main>
-<footer>
-    <hr>
-    Please do not sue me
-</footer>
-</body>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

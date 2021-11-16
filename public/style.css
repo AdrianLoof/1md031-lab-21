@@ -81,6 +81,7 @@ form p {
 
 .a {
     grid-column: 1;
+    border:groove #ff5500;
 }
 .b {
     grid-column: 2 ;
