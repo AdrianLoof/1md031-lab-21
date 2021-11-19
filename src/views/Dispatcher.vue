@@ -2,6 +2,7 @@
   <div id="orders">
     <div id="orderList">
       <div v-for="(order, key) in orders" v-bind:key="'order'+key">
+        {{orders}}
         #{{ key }}: {{ order.orderItems.join(", ") }}
       </div>
       <button v-on:click="clearQueue">Clear Queue</button>
@@ -37,12 +38,12 @@ export default {
 </script>
 <style>
 #orderList {
-  top:1em;
-  left:1em;
+  top: 1em;
+  left: 1em;
   position: absolute;
   z-index: 2;
-  color:black;
-  background: rgba(255,255,255, 0.5);
+  color: black;
+  background: rgba(255, 255, 255, 0.5);
   padding: 1em;
 }
 #dots {
@@ -65,4 +66,6 @@ export default {
   height:20px;
   text-align: center;
 }
+
+
 </style>

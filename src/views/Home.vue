@@ -13,7 +13,8 @@
       <div class="wrapper">
         <Burger class="box" v-for="burger in burgers"
                 v-bind:burger="burger"
-                v-bind:key="burger.name"/>
+                v-bind:key="burger.name"
+                v-on:orderedBurger="addToOrder($event)"/>
       </div>
     </section>
 
@@ -21,18 +22,19 @@
       <h3 class="movetitles">Customer Information</h3>
       <form>
         <p>
-          <input type="radio" id="male" name="gender" value="male">
+          <input type="radio" id="male" v-model="gender" value="male">
           <label for="male">Male</label>
         </p>
 
         <p>
-          <input type="radio" id="female" name="gender" value="female">
+          <input type="radio" id="female" v-model="gender" value="female">
           <label for="female">Female</label>
         </p>
 
         <p>
-          <input type="radio" id="Other" name="gender" value="Other" checked>
+          <input type="radio" id="Other" v-model="gender" value="Other" checked>
           <label for="Other">Other</label>
+
         </p>
 
 
@@ -41,43 +43,35 @@
 
         <p>
           <label for="Fullname">Full Name</label><br>
-          <input type="text" id="fullname" name="fn" required="required" placeholder="Full Name">
+          <input type="text" v-model="fn" id="fullname" required="required" placeholder="Full Name">
         </p>
 
         <p>
           <label for="email">Email</label><br>
-          <input type="email" id="email" name="em" required="required" placeholder="E-mail address">
+          <input type="email" id="email" v-model="em" required="required" placeholder="E-mail address">
+
         </p>
 
-        <p>
-          <label for="Street">Street</label><br>
-          <input type="text" id="street" name="st" placeholder="Street">
-        </p>
-
-        <p>
-          <label for="HouseNumber">House Number</label><br>
-          <input type="number" id="housenumber" name="Num" placeholder="House Number">
-        </p>
 
         <p>
           <label for="recipient">Recipient</label><br>
-          <select id="recipient" name="rcp">
+          <select id="recipient" v-model="rcp">
             <option selected="selected">Credit Card</option>
             <option>Delivery Payment</option>
             <option>Bitcoin</option>
             <option>Invoice</option>
             <option>Sing a song</option>
           </select>
+
         </p>
         <p>
           <label for="other">Other Information</label><br>
-          <textarea id="other"></textarea>
+          <textarea id="other" v-model="txtarea"></textarea>
         </p>
       </form>
 
     </section>
-    <button class="button" style="margin-left: 20px  " type="submit">
-
+    <button v-on:click="MarkDone()" class="button" style="margin-left: 20px  " type="submit">
       Make Order!
     </button>
 
@@ -90,18 +84,23 @@
   <div>
     {{ yourVariable }}
   </div>
-
-  <div id="map" v-on:click="addOrder">
-    click here
+  <div id="map">
+    <div id="dots" v-on:click="setLocation">
+      <div v-bind:style="{ left: location.x + 'px',
+                      top: location.y + 'px'  }">
+        T
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Burger from '../components/Burger.vue'
 import io from 'socket.io-client'
+import menu from '../assets/menu.json'
 
 const socket = io();
-
+/*
 function MenuItem(Name, calories, picture, gluten,milk) {
   this.name = Name; // The *this* keyword refers to the object itself
   this.ingredient =gluten ;
@@ -117,7 +116,8 @@ const BurgerArray=[
   new MenuItem("Elibonks", 300,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6JTkxNoHt9VElHKqalvT_8tVus0wQE61JA&usqp=CAU", false,  false)
 ];
 console.log(BurgerArray);
-
+*/
+const BurgerArray = menu;
 export default {
   name: 'Home',
   components: {
@@ -125,29 +125,79 @@ export default {
   },
   data: function () {
     return {
-       yourVariable: "välj en burgare",
-      burgers: BurgerArray
+      yourVariable: "välj en burgare",
+      burgers: BurgerArray,
+      fn: "",
+      em: "",
+      gender: "",
+      rcp: "",
+      txtarea: "",
+      orderedBurgers: {},
+      location: {
+        x: 0,
+        y: 0
+      }
 
-          /*[ {name: "small burger", kCal: 250},
-                 {name: "standard burger", kCal: 450},
-                 {name: "large burger", kCal: 850}
-               ] */
+
+      /*[ {name: "small burger", kCal: 250},
+             {name: "standard burger", kCal: 450},
+             {name: "large burger", kCal: 850}
+           ] */
     }
   },
   methods: {
     getOrderNumber: function () {
-      return Math.floor(Math.random()*100000);
+      return Math.floor(Math.random() * 100000);
+
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
-    }
+    setLocation:function(event){
+      var offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+      };
+      this.location = {
+        x: event.clientX - 10 - offset.x,
+        y: event.clientY - 10 - offset.y
+
+      }
+    },
+    addToOrder: function (event) {
+      this.orderedBurgers[event.name] = event.amount;
+    },
+    MarkDone: function () {
+      console.log(this.gender, this.fn, this.em, this.rcp, this.txtarea, this.orderedBurgers);
+      socket.emit("addOrder", {
+            orderId: this.getOrderNumber(),
+            details: {
+              x: this.location.x,
+              y: this.location.y
+            },
+            orderItems: [this.orderedBurgers]
+          }
+      );
+    },
+   /* addOrder: function (event) {
+
+      var offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+      };
+
+
+      socket.emit("addOrder", {
+            orderId: this.getOrderNumber(),
+            details: {
+              x: event.clientX - 10 - offset.x,
+              y: event.clientY - 10 - offset.y
+            },
+            orderItems: ["Beans", "Curry"]
+          }
+      );
+      this.location = {
+        x: event.clientX - 10 - offset.x,
+        y: event.clientY - 10 - offset.y
+
+    }*/
   }
 }
 </script>
@@ -201,27 +251,28 @@ form p {
   background-color: chartreuse;
 }
 
-.container{
-  position:relative;
-  text-align:center;
-  color:white;
-  margin:20px;
-  border:groove #ff5500;
-  overflow:hidden;
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+  margin: 20px;
+  border: groove #ff5500;
+  overflow: hidden;
 }
-#background{
+
+#background {
   align-content: center;
   width: 100%;
   height: 13em;
-  opacity:70%;
+  opacity: 70%;
 }
 
-#headertext{
-  position :absolute;
-  top :30%;
+#headertext {
+  position: absolute;
+  top: 30%;
   left: 50%;
-  z-index:1;
-  transform: translate(-50%,50%);
+  z-index: 1;
+  transform: translate(-50%, 50%);
 }
 
 .wrapper {
@@ -237,12 +288,13 @@ form p {
 
 
 }
+
 .box {
- /* background-color: #444;
-  color: #fff;
-  border-radius: 50px;
-  padding: 50px;
-   font-size: 150%; */
+  /* background-color: #444;
+   color: #fff;
+   border-radius: 50px;
+   padding: 50px;
+    font-size: 150%; */
 }
 
 
@@ -250,20 +302,46 @@ form p {
   grid-column: 1;
 
 }
+
 .b {
-  grid-column: 2 ;
+  grid-column: 2;
 
 }
+
 .c {
-  grid-column: 3 ;
+  grid-column: 3;
 
 }
 
 
+#dots {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background: url(/img/polacks.jpg);
+  background-repeat: no-repeat;
+  width: 1920px;
+  height: 1078px;
+  cursor: crosshair;
+
+}
 
 #map {
-    width: 300px;
-    height: 300px;
-    background-color: red;
-  }
+  width: 400px;
+  height: 500px;
+  overflow: scroll;
+  margin-left: 200px;
+
+}
+
+#dots div {
+  position: absolute;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
 </style>

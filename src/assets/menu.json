@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Addes",
+    "kCal": 1200,
+    "lactose": false,
+    "gluten": true,
+    "img": "https://images.unsplash.com/photo-1613277367862-f8ef14db7748?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmlnJTIwYnVyZ2VyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+  },
+  {
+    "name": "Robbans",
+    "kCal": 400,
+    "lactose": true,
+    "gluten": true,
+    "img": "https://www.schaer.com/sites/default/files/2000_Fiery%20Mexican%20Chicken%20Burger.jpg"
+
+  },
+  {
+    "name": "Elibonks",
+    "kCal": 300,
+    "lactose": false,
+    "gluten": false,
+    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6JTkxNoHt9VElHKqalvT_8tVus0wQE61JA&usqp=CAU"
+  }
+  ]
