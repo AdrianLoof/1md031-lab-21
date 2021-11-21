@@ -2,8 +2,14 @@
   <div id="orders">
     <div id="orderList">
       <div v-for="(order, key) in orders" v-bind:key="'order'+key">
-        {{orders}}
-        #{{ key }}: {{ order.orderItems.join(", ") }}
+      <b>  Ordered Burgers:</b>
+        <br>
+        #{{ key }}: {{((JSON.stringify(order.orderItems))) }}
+        <br>
+        <b> Customer Info:</b>
+        <br>
+        {{order.customerInfo.join(",")}}
+
       </div>
       <button v-on:click="clearQueue">Clear Queue</button>
     </div>

@@ -1,14 +1,14 @@
 <template>
   <header>
     <div class="container">
-      <h1 id="headertext">Välkommen till Addes Burgare</h1>
+      <h1 id="headertext">Welcome to Addes Burgers</h1>
       <img id="background" src="paddys.jpg">
     </div>
   </header>
 
   <main>
     <section id="testid">
-      <h2>Välj Burgare</h2>
+      <h2>Choose Burger</h2>
       <p>This is where you select burger</p>
       <div class="wrapper">
         <Burger class="box" v-for="burger in burgers"
@@ -64,12 +64,21 @@
           </select>
 
         </p>
+
         <p>
           <label for="other">Other Information</label><br>
           <textarea id="other" v-model="txtarea"></textarea>
         </p>
       </form>
-
+      <span style="margin-left: 30px">Please indicate point of delivery:</span>
+      <div id="map">
+        <div id="dots" v-on:click="setLocation">
+          <div v-bind:style="{ left: location.x + 'px',
+                      top: location.y + 'px'  }">
+            T
+          </div>
+        </div>
+      </div>
     </section>
     <button v-on:click="MarkDone()" class="button" style="margin-left: 20px  " type="submit">
       Make Order!
@@ -78,20 +87,10 @@
   </main>
   <footer>
     <hr>
-    Please do not sue me
+    <b> Please do not sue me </b>
+
   </footer>
-  <input type="text" v-model="yourVariable">
-  <div>
-    {{ yourVariable }}
-  </div>
-  <div id="map">
-    <div id="dots" v-on:click="setLocation">
-      <div v-bind:style="{ left: location.x + 'px',
-                      top: location.y + 'px'  }">
-        T
-      </div>
-    </div>
-  </div>
+
 </template>
 
 <script>
@@ -100,23 +99,7 @@ import io from 'socket.io-client'
 import menu from '../assets/menu.json'
 
 const socket = io();
-/*
-function MenuItem(Name, calories, picture, gluten,milk) {
-  this.name = Name; // The *this* keyword refers to the object itself
-  this.ingredient =gluten ;
-  this.lactose=milk;
-  this.img = picture;
-  this.kCal=calories;
-  return this;
-}
 
-const BurgerArray=[
-  new MenuItem("Addes",1200,"https://images.unsplash.com/photo-1613277367862-f8ef14db7748?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmlnJTIwYnVyZ2VyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",false,true),
-  new MenuItem( "Robbans", 400,"https://www.schaer.com/sites/default/files/2000_Fiery%20Mexican%20Chicken%20Burger.jpg", true,  true ),
-  new MenuItem("Elibonks", 300,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP6JTkxNoHt9VElHKqalvT_8tVus0wQE61JA&usqp=CAU", false,  false)
-];
-console.log(BurgerArray);
-*/
 const BurgerArray = menu;
 export default {
   name: 'Home',
@@ -129,8 +112,8 @@ export default {
       burgers: BurgerArray,
       fn: "",
       em: "",
-      gender: "",
-      rcp: "",
+      gender: "Other",
+      rcp: "Credit Card",
       txtarea: "",
       orderedBurgers: {},
       location: {
@@ -139,10 +122,6 @@ export default {
       }
 
 
-      /*[ {name: "small burger", kCal: 250},
-             {name: "standard burger", kCal: 450},
-             {name: "large burger", kCal: 850}
-           ] */
     }
   },
   methods: {
@@ -150,7 +129,7 @@ export default {
       return Math.floor(Math.random() * 100000);
 
     },
-    setLocation:function(event){
+    setLocation: function (event) {
       var offset = {
         x: event.currentTarget.getBoundingClientRect().left,
         y: event.currentTarget.getBoundingClientRect().top
@@ -172,32 +151,19 @@ export default {
               x: this.location.x,
               y: this.location.y
             },
-            orderItems: [this.orderedBurgers]
-          }
+            orderItems: [this.orderedBurgers],
+            customerInfo:
+                [this.gender,
+                  this.fn,
+                  this.em,
+                  this.rcp,
+                  this.txtarea]
+
+
+          },
       );
     },
-   /* addOrder: function (event) {
 
-      var offset = {
-        x: event.currentTarget.getBoundingClientRect().left,
-        y: event.currentTarget.getBoundingClientRect().top
-      };
-
-
-      socket.emit("addOrder", {
-            orderId: this.getOrderNumber(),
-            details: {
-              x: event.clientX - 10 - offset.x,
-              y: event.clientY - 10 - offset.y
-            },
-            orderItems: ["Beans", "Curry"]
-          }
-      );
-      this.location = {
-        x: event.clientX - 10 - offset.x,
-        y: event.clientY - 10 - offset.y
-
-    }*/
   }
 }
 </script>
@@ -215,7 +181,8 @@ section {
 }
 
 section div {
-  padding: 60px;
+  /*padding: 60px;
+  */
 }
 
 .ingrediens {
@@ -285,6 +252,8 @@ form p {
   display: grid;
   grid-gap: 250px;
   grid-template-columns: 100px 100px 100px;
+  border-radius: 200px;
+  padding: 50px;
 
 
 }
@@ -327,8 +296,8 @@ form p {
 }
 
 #map {
-  width: 400px;
-  height: 500px;
+  width: 600px;
+  height: 300px;
   overflow: scroll;
   margin-left: 200px;
 
